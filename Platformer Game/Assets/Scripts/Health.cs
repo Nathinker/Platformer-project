@@ -7,11 +7,19 @@ public class Health : MonoBehaviour
 {
     [SerializeField] float health = 3;
     [SerializeField] TextMeshProUGUI printer;
+    [SerializeField] GameObject playerPre;
+    Vector2 playerPos;
+    Vector2 tempPos;
+    public Transform p_RespawnPoint;
+    public Transform p_TempPoint;
+    public bool isDead = false;
 
     // Start is called before the first frame update
     void Start()
     {
         printer.text = "Health: " + health;
+        playerPos.Set(p_RespawnPoint.position.x, p_RespawnPoint.position.y);
+        tempPos.Set(p_TempPoint.position.x, p_TempPoint.position.y);
     }
 
     // Update is called once per frame
@@ -32,6 +40,15 @@ public class Health : MonoBehaviour
 
     public void Death()
     {
-        Destroy(gameObject);
+        isDead = true;
+        transform.position = tempPos;
+    }
+
+    public void Respawn()
+    {
+        isDead = false;
+        health = 3;
+        printer.text = "Health: " + health;
+        transform.position = playerPos;
     }
 }
