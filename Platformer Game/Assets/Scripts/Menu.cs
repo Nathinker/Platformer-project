@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GameOver : MonoBehaviour
+public class Menu : MonoBehaviour
 {
-    [SerializeField] GameObject gameOverPanel;
     [SerializeField] GameObject playerPre;
 
     // Start is called before the first frame update
@@ -16,14 +16,13 @@ public class GameOver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerPre.GetComponent<Health>().isDead == true)
-        {
-            gameOverPanel.SetActive(true);
-        }
-        else if (playerPre.GetComponent<Health>().isDead == false)
-        {
-            gameOverPanel.SetActive(false);
-        }
+        
+    }
+
+    public void ReloadLevel()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void Exit()

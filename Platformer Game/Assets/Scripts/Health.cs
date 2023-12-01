@@ -7,6 +7,7 @@ public class Health : MonoBehaviour
 {
     [SerializeField] float health = 3;
     [SerializeField] TextMeshProUGUI printer;
+    [SerializeField] GameObject gameOverMenu;
     [SerializeField] GameObject playerPre;
     Vector2 playerPos;
     Vector2 tempPos;
@@ -25,7 +26,7 @@ public class Health : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void addHealth(float healthToAdd)
@@ -41,14 +42,19 @@ public class Health : MonoBehaviour
     public void Death()
     {
         isDead = true;
-        transform.position = tempPos;
+        gameOverMenu.SetActive(true);
+        Time.timeScale = 0;
+        playerPre.SetActive(false);
     }
 
     public void Respawn()
     {
         isDead = false;
+        gameOverMenu.SetActive(false);
+        Time.timeScale = 1;
         health = 3;
         printer.text = "Health: " + health;
         transform.position = playerPos;
+        playerPre.SetActive(true);
     }
 }
