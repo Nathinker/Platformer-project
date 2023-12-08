@@ -26,7 +26,7 @@ public class Health : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        // Method intentionally left empty.
     }
 
     public void addHealth(float healthToAdd)
