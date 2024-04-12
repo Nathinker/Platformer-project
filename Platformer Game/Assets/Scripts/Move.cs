@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +12,8 @@ public class Move : MonoBehaviour
     Rigidbody2D rb;
     Animator anim;
     SpriteRenderer sprite;
+    Transform playerObject;
+    int gravityMode = 0; 
     bool grounded = false;
     bool jump = false;
 
@@ -21,6 +24,7 @@ public class Move : MonoBehaviour
         coll = GetComponent<CapsuleCollider2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        playerObject = GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -29,10 +33,25 @@ public class Move : MonoBehaviour
         bool isRunning = inputDir.x != 0;
         anim.SetBool("Run", isRunning);
         anim.SetBool("Grounded", grounded);
-        anim.SetFloat("DirY", rb.velocity.y);
+        if (gravityMode == 0)
+        {
+            groundFilter.minNormalAngle = 80;
+            groundFilter.maxNormalAngle = 100;
+            anim.SetFloat("DirY", rb.velocity.y);
+            sprite.flipY = false;
+        }
+        else if (gravityMode == 1)
+        {
+            groundFilter.minNormalAngle = -80;
+            groundFilter.maxNormalAngle = -100;
+            anim.SetFloat("DirY", -(rb.velocity.y));
+            Debug.Log(anim.GetFloat("DirY"));
+            sprite.flipY = true;
+        }
         grounded = coll.IsTouching(groundFilter);
         MoveObject();
         Jump();
+        GravitySwitch();
     }
 
     private void MoveObject()
@@ -48,7 +67,14 @@ public class Move : MonoBehaviour
         {
             jump = false;
             rb.velocity = new Vector2(rb.velocity.x, 0);
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            if (gravityMode == 0)
+            {
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            }
+            else if (gravityMode == 1)
+            {
+                rb.AddForce(Vector2.down * jumpForce, ForceMode2D.Impulse);
+            }
         }
     }
 
@@ -66,5 +92,35 @@ public class Move : MonoBehaviour
     public void ActivateJump(InputAction.CallbackContext context)
     {
         jump = context.started;
+    }
+
+    public void GravitySwitch()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            switch (gravityMode)
+            {
+                case 0:
+                    gravityMode = 1;
+                    rb.gravityScale = -1.25f;
+                    groundFilter.minNormalAngle = 80;
+                    groundFilter.maxNormalAngle = 100;
+                    anim.SetFloat("DirY", rb.velocity.y);
+                    sprite.flipY = false;
+                    break;
+                case 1:
+                    gravityMode = 0;
+                    rb.gravityScale = 1.25f;
+                    break;
+                    groundFilter.minNormalAngle = -80;
+                    groundFilter.maxNormalAngle = -100;
+                    anim.SetFloat("DirY", -(rb.velocity.y));
+                    Debug.Log(anim.GetFloat("DirY"));
+                    sprite.flipY = true;
+                default:
+                    break;
+            }
+            Debug.Log($"Gravity Mode: {gravityMode}");
+        }
     }
 }
