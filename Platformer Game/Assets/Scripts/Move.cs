@@ -1,5 +1,3 @@
-using UnityEditor.Experimental.GraphView;
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -28,7 +26,8 @@ public class Move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        anim.SetBool("Run", inputDir.x != 0);
+        bool isRunning = inputDir.x != 0;
+        anim.SetBool("Run", isRunning);
         anim.SetBool("Grounded", grounded);
         anim.SetFloat("DirY", rb.velocity.y);
         grounded = coll.IsTouching(groundFilter);
@@ -38,7 +37,9 @@ public class Move : MonoBehaviour
 
     private void MoveObject()
     {
-        rb.velocity = new Vector2(inputDir.x * speed, rb.velocity.y);
+        Vector2 newVelocity = rb.velocity;
+        newVelocity.x = inputDir.x * speed;
+        rb.velocity = newVelocity;
     }
 
     private void Jump()
@@ -51,29 +52,19 @@ public class Move : MonoBehaviour
         }
     }
 
-    public void setMoveDir (InputAction.CallbackContext context)
+    public void setMoveDir(InputAction.CallbackContext context)
     {
         inputDir = context.ReadValue<Vector2>();
 
-        if (inputDir.x > 0 && sprite.flipX)
+        bool flipX = inputDir.x < 0;
+        if (sprite.flipX != flipX)
         {
-            sprite.flipX = false;
-        }
-        if (inputDir.x < 0 && !sprite.flipX)
-        {
-            sprite.flipX = true;
+            sprite.flipX = flipX;
         }
     }
 
-    public void ActivateJump (InputAction.CallbackContext context)
-        {
-            if (context.started)
-            {
-                jump = true;
-            }
-            if (context.performed || context.canceled)
-            {
-                jump = false;
-            }
-        }
+    public void ActivateJump(InputAction.CallbackContext context)
+    {
+        jump = context.started;
+    }
 }
