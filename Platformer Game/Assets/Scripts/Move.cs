@@ -45,7 +45,6 @@ public class Move : MonoBehaviour
             groundFilter.minNormalAngle = -80;
             groundFilter.maxNormalAngle = -100;
             anim.SetFloat("DirY", -(rb.velocity.y));
-            Debug.Log(anim.GetFloat("DirY"));
             sprite.flipY = true;
         }
         grounded = coll.IsTouching(groundFilter);
@@ -103,20 +102,11 @@ public class Move : MonoBehaviour
                 case 0:
                     gravityMode = 1;
                     rb.gravityScale = -1.25f;
-                    groundFilter.minNormalAngle = 80;
-                    groundFilter.maxNormalAngle = 100;
-                    anim.SetFloat("DirY", rb.velocity.y);
-                    sprite.flipY = false;
                     break;
                 case 1:
                     gravityMode = 0;
                     rb.gravityScale = 1.25f;
                     break;
-                    groundFilter.minNormalAngle = -80;
-                    groundFilter.maxNormalAngle = -100;
-                    anim.SetFloat("DirY", -(rb.velocity.y));
-                    Debug.Log(anim.GetFloat("DirY"));
-                    sprite.flipY = true;
                 default:
                     break;
             }
