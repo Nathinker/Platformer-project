@@ -8,6 +8,7 @@ public class Health : MonoBehaviour
     [SerializeField] private GameObject gameOverMenu;
     [SerializeField] private GameObject playerPre;
     private Vector2 playerPos;
+    private Move playerMovement;
     public Transform p_RespawnPoint;
     public bool isDead;
 
@@ -47,6 +48,7 @@ public class Health : MonoBehaviour
         isDead = false;
         gameOverMenu.SetActive(false);
         Time.timeScale = 1;
+        playerMovement.gravityMode = 0;
         health = 3;
         printer.text = "Health: " + health;
         transform.position = playerPos;
