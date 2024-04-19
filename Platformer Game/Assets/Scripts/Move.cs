@@ -47,6 +47,7 @@ public class Move : MonoBehaviour
             groundFilter.maxNormalAngle = 100;
             anim.SetFloat("DirY", rb.velocity.y);
             sprite.flipY = false;
+            //coll.transform.rotation.Set(0, 0, 0, 0);
         }
         else if (gravityMode == 1) // Checks if gravity is upward
         {
@@ -58,6 +59,7 @@ public class Move : MonoBehaviour
             groundFilter.maxNormalAngle = -100;
             anim.SetFloat("DirY", -(rb.velocity.y));
             sprite.flipY = true;
+            //coll.transform.rotation.Set(180, 0, 0, 0);
         }
         grounded = coll.IsTouching(groundFilter);
         MoveObject();
