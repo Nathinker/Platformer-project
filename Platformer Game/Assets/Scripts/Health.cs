@@ -3,38 +3,40 @@ using TMPro;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private float health = 3;
+    [SerializeField] private float startingHealth = 3;
     [SerializeField] private TextMeshProUGUI printer;
     [SerializeField] private GameObject gameOverMenu;
     [SerializeField] private GameObject playerPre;
     private Vector2 playerPos;
-    private Move playerMovement;
     public Transform p_RespawnPoint;
     public bool isDead;
+    private float health = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        printer.text = "Health: " + health;
+        health = startingHealth;
+        printer.text = $"Health: {(int)health}";
         playerPos.Set(p_RespawnPoint.position.x, p_RespawnPoint.position.y);
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {}
 
-    }
-
-    public void AddHealth(float healthToAdd)
+    // Adds the specificed amount of health
+    public void AddHealth(float amount)
     {
-        health += healthToAdd;
-        printer.text = "Health: " + health;
+        health += amount;
+        printer.text = $"Health: {(int)health}";
+        // If the player's health is 0 or less, the player dies
         if (health <= 0)
         {
             Death();
         }
     }
 
+    // Sets the player as deas, displays the game-over menu, freezes time, and deactivates the player character
     public void Death()
     {
         isDead = true;
@@ -43,15 +45,16 @@ public class Health : MonoBehaviour
         playerPre.SetActive(false);
     }
 
+    // Method to respawn the player, and sets the corresponding variables and objects accordingly
     public void Respawn()
     {
         isDead = false;
         gameOverMenu.SetActive(false);
-        Time.timeScale = 1;
-        playerMovement.gravityMode = 0;
-        health = 3;
-        printer.text = "Health: " + health;
+        Time.timeScale = 1f;
+        health = startingHealth;
+        printer.text = $"Health: {health}";
         transform.position = playerPos;
         playerPre.SetActive(true);
+        playerPre.GetComponent<Move>().RespawnPositioning();
     }
 }

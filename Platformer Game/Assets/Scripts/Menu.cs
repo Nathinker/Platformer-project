@@ -7,18 +7,20 @@ public class Menu : MonoBehaviour
 {
     [SerializeField] GameObject playerPre;
 
+    // Reloads the Level when this function is called
     public void ReloadLevel()
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    // Exits the Game when this function is called
     public void Exit()
     {
-        Application.Quit();
-
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-#endif 
+#else
+        Application.Quit(); 
+#endif
     }
 }
