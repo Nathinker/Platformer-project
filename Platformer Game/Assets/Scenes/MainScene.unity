@@ -6612,19 +6612,7 @@ MonoBehaviour:
     m_ActionId: d9e34e30-df83-47df-bcae-7fb6b90ea352
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1600846911}
-        m_TargetAssemblyTypeName: Move, Assembly-CSharp
-        m_MethodName: ActivateJump
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 63f81b93-e97d-4697-8c21-00e0280451a4
     m_ActionName: Player/Jump[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
@@ -6645,7 +6633,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  jumpForce: 8
   groundFilter:
     useTriggers: 0
     useLayerMask: 0
@@ -6660,6 +6647,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 80
     maxNormalAngle: 100
+  playerFlipState: 0
   gravityState: 0
 --- !u!114 &1600846912
 MonoBehaviour:
