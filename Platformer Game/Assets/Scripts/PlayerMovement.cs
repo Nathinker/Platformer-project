@@ -1,12 +1,15 @@
 using Cinemachine;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Move : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 3;
+    [SerializeField] private TextMeshProUGUI dirYText;
     [SerializeField] private ContactFilter2D groundFilter;
+
     private Vector2 inputDir = Vector2.zero;
     private CapsuleCollider2D coll;
     private Rigidbody2D rb;
@@ -15,7 +18,7 @@ public class Move : MonoBehaviour
     private Transform playerTransform;
     public int playerFlipState = 0;
     public int gravityState = 0; 
-    private bool isGrounded = false;
+    private bool IsGrounded => coll.IsTouching(groundFilter);
     private float dirY = 0;
 
     // Start is called before the first frame update
@@ -35,27 +38,16 @@ public class Move : MonoBehaviour
 
         // Checks the approperiate animaton for the actions of the player character
         anim.SetBool("Run", isRunning);
-        anim.SetBool("Grounded", isGrounded);
-
-        dirY = rb.velocity.y;
-        isGrounded = coll.IsTouching(groundFilter);
-
-        // Checks if the player has upwards or downnwards gravity and sets the approperiate parameters accordingly
-        groundFilter.minNormalAngle = -80f * (gravityState == 0 ? -1 : gravityState == 1 ? 1 : -1);
-        groundFilter.maxNormalAngle = -100f * (gravityState == 0 ? -1 : gravityState == 1 ? 1 : -1);
-        anim.SetFloat("DirY", dirY * (gravityState == 0 ? 1 : gravityState == 1 ? -1 : 1));
-        playerTransform.rotation = Quaternion.Euler(0, 0, 180f * (gravityState == 0 ? 0 : gravityState == 1 ? 1 : 0));
-        sprite.flipX = (playerFlipState == 1) != (gravityState == 1);
+        anim.SetBool("Grounded", IsGrounded);
+        GrvaityParameters();
         MovePlayer();
-        GravitySwitch();
     }
 
     // Function to move the player
     private void MovePlayer()
     {
-        Vector2 newVelocity = rb.velocity;
-        newVelocity.x = inputDir.x * moveSpeed;
-        rb.velocity = newVelocity;
+        Vector2 playerVelocity = new(inputDir.x * moveSpeed, rb.velocity.y);
+        rb.velocity = playerVelocity;
     }
 
     // Sets the move direction when the left or right keys are pressed, and flips the sprite if necessary
@@ -73,12 +65,25 @@ public class Move : MonoBehaviour
     // Switches the gravity when the Q key is pressed
     public void GravitySwitch()
     {
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (IsGrounded)
         {
             gravityState = 1 - gravityState;
             rb.gravityScale *= -1;
             sprite.flipX = gravityState == 1;
         }
+    }
+
+    public void GrvaityParameters()
+    {
+        dirY = rb.velocity.y;
+
+        // Checks if the player has upwards or downnwards gravity and sets the approperiate parameters accordingly
+        groundFilter.minNormalAngle = -80f * (gravityState == 0 ? -1 : gravityState == 1 ? 1 : -1);
+        groundFilter.maxNormalAngle = -100f * (gravityState == 0 ? -1 : gravityState == 1 ? 1 : -1);
+        anim.SetFloat("DirY", dirY * (gravityState == 0 ? 1 : gravityState == 1 ? -1 : 1));
+        playerTransform.rotation = Quaternion.Euler(0, 0, 180f * (gravityState == 0 ? 0 : gravityState == 1 ? 1 : 0));
+        sprite.flipX = (playerFlipState == 1) != (gravityState == 1);
+        dirYText.text = $"DirY: {dirY}";
     }
 
     // Sets the player's respawn positioning

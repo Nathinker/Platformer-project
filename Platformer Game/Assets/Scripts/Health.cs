@@ -21,8 +21,7 @@ public class Health : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {}
+    void Update() {}
 
     // Adds the specificed amount of health
     public void AddHealth(float amount)
@@ -55,6 +54,6 @@ public class Health : MonoBehaviour
         printer.text = $"Health: {health}";
         transform.position = playerPos;
         playerPre.SetActive(true);
-        playerPre.GetComponent<Move>().RespawnPositioning();
+        playerPre.GetComponent<PlayerMovement>().RespawnPositioning();
     }
 }
