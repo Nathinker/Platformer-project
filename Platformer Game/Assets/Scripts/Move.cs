@@ -73,7 +73,7 @@ public class Move : MonoBehaviour
     // Switches the gravity when the Q key is pressed
     public void GravitySwitch()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
             gravityState = 1 - gravityState;
             rb.gravityScale *= -1;
