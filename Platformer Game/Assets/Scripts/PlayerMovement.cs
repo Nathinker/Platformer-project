@@ -1,4 +1,5 @@
 using Cinemachine;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,6 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 3;
+    [SerializeField] private TextMeshProUGUI dirYText;
     [SerializeField] private ContactFilter2D groundFilter;
 
     private Vector2 inputDir = Vector2.zero;
@@ -16,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private Transform playerTransform;
     public int playerFlipState = 0;
     public int gravityState = 0; 
-    private bool isGrounded => coll.IsTouching(groundFilter);
+    private bool IsGrounded => coll.IsTouching(groundFilter);
     private float dirY = 0;
 
     // Start is called before the first frame update
@@ -36,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Checks the approperiate animaton for the actions of the player character
         anim.SetBool("Run", isRunning);
-        anim.SetBool("Grounded", isGrounded);
+        anim.SetBool("Grounded", IsGrounded);
         GrvaityParameters();
         MovePlayer();
     }
@@ -44,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     // Function to move the player
     private void MovePlayer()
     {
-        Vector2 playerVelocity = new Vector2(inputDir.x * moveSpeed, rb.velocity.y);
+        Vector2 playerVelocity = new(inputDir.x * moveSpeed, rb.velocity.y);
         rb.velocity = playerVelocity;
     }
 
@@ -63,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
     // Switches the gravity when the Q key is pressed
     public void GravitySwitch()
     {
-        if (isGrounded)
+        if (IsGrounded)
         {
             gravityState = 1 - gravityState;
             rb.gravityScale *= -1;
@@ -81,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
         anim.SetFloat("DirY", dirY * (gravityState == 0 ? 1 : gravityState == 1 ? -1 : 1));
         playerTransform.rotation = Quaternion.Euler(0, 0, 180f * (gravityState == 0 ? 0 : gravityState == 1 ? 1 : 0));
         sprite.flipX = (playerFlipState == 1) != (gravityState == 1);
+        dirYText.text = $"DirY: {dirY}";
     }
 
     // Sets the player's respawn positioning

@@ -9,10 +9,9 @@ public class Damage : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(damageTag))
         {
-            Health health = collision.gameObject.GetComponent<Health>();
-            if (health != null)
+            if (collision.gameObject.TryGetComponent<Health>(out var hl))
             {
-                health.AddHealth(damage);
+                hl.AddHealth(damage);
             }
         }
     }
