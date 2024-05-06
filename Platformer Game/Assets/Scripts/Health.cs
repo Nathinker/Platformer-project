@@ -3,15 +3,25 @@ using TMPro;
 
 public class Health : MonoBehaviour
 {
+    #region Fields
     [SerializeField] private float startingHealth = 3;
-    [SerializeField] private TextMeshProUGUI printer;
-    [SerializeField] private GameObject gameOverMenu;
-    [SerializeField] private GameObject playerPre;
-    private Vector2 playerPos;
-    public Transform p_RespawnPoint;
-    public bool isDead;
-    private float health = 0;
 
+    [SerializeField] private TextMeshProUGUI printer;
+
+    [SerializeField] private GameObject gameOverMenu;
+
+    [SerializeField] private GameObject playerPre;
+
+    private Vector2 playerPos;
+
+    public Transform p_RespawnPoint;
+
+    public bool isDead;
+
+    private float health = 0;
+    #endregion
+
+    #region Start
     // Start is called before the first frame update
     void Start()
     {
@@ -19,10 +29,14 @@ public class Health : MonoBehaviour
         printer.text = $"Health: {(int)health}";
         playerPos.Set(p_RespawnPoint.position.x, p_RespawnPoint.position.y);
     }
+    #endregion
 
+    #region Update
     // Update is called once per frame
-    void Update() {}
+    void Update() { }
+    #endregion
 
+    #region AddHealth
     // Adds the specificed amount of health
     public void AddHealth(float amount)
     {
@@ -34,7 +48,9 @@ public class Health : MonoBehaviour
             Death();
         }
     }
+    #endregion
 
+    #region Death
     // Sets the player as deas, displays the game-over menu, freezes time, and deactivates the player character
     public void Death()
     {
@@ -43,7 +59,9 @@ public class Health : MonoBehaviour
         Time.timeScale = 0;
         playerPre.SetActive(false);
     }
+    #endregion
 
+    #region Respawn
     // Method to respawn the player, and sets the corresponding variables and objects accordingly
     public void Respawn()
     {
@@ -56,4 +74,5 @@ public class Health : MonoBehaviour
         playerPre.SetActive(true);
         playerPre.GetComponent<PlayerMovement>().RespawnPositioning();
     }
+    #endregion
 }

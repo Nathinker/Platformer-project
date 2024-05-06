@@ -4,8 +4,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+#region PlayerMovement Class
 public class PlayerMovement : MonoBehaviour
 {
+    #region Variables
     [SerializeField] private float moveSpeed = 3;
     [SerializeField] private TextMeshProUGUI dirYText;
     [SerializeField] private ContactFilter2D groundFilter;
@@ -20,7 +22,9 @@ public class PlayerMovement : MonoBehaviour
     public int gravityState = 0; 
     private bool IsGrounded => coll.IsTouching(groundFilter);
     private float dirY = 0;
+    #endregion
 
+    #region Unity Functions
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +46,9 @@ public class PlayerMovement : MonoBehaviour
         GrvaityParameters();
         MovePlayer();
     }
+#endregion
 
+    #region Private Functions
     // Function to move the player
     private void MovePlayer()
     {
@@ -86,6 +92,7 @@ public class PlayerMovement : MonoBehaviour
         dirYText.text = $"DirY: {dirY}";
     }
 
+
     // Sets the player's respawn positioning
     public void RespawnPositioning()
     {
@@ -93,4 +100,7 @@ public class PlayerMovement : MonoBehaviour
         rb.gravityScale = 1.25f;
         sprite.flipX = gravityState == 1;
     }
+#endregion
+
 }
+#endregion

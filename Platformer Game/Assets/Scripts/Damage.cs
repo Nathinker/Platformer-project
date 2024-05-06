@@ -1,10 +1,15 @@
 using UnityEngine;
 
+#region Damage
 public class Damage : MonoBehaviour
 {
+    #region Fields
     [SerializeField] private float damage = -1f;
-    [SerializeField] private string damageTag = "Player";
 
+    [SerializeField] private string damageTag = "Player";
+    #endregion
+
+    #region OnCollisionEnter2D
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag(damageTag))
@@ -15,4 +20,6 @@ public class Damage : MonoBehaviour
             }
         }
     }
+    #endregion
 }
+#endregion
