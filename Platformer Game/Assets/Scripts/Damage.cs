@@ -1,11 +1,12 @@
 using UnityEngine;
 
 #region Damage
+using UnityEngine;
+
 public class Damage : MonoBehaviour
 {
     #region Fields
-    [SerializeField] private float damage = -1f;
-
+    [SerializeField] private float damageAmount = 1f;
     [SerializeField] private string damageTag = "Player";
     #endregion
 
@@ -14,10 +15,18 @@ public class Damage : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(damageTag))
         {
-            if (collision.gameObject.TryGetComponent<Health>(out var hl))
-            {
-                hl.AddHealth(damage);
-            }
+            ApplyDamage(collision.gameObject);
+        }
+    }
+    #endregion
+
+    #region ApplyDamage
+    private void ApplyDamage(GameObject target)
+    {
+        var hl = target.GetComponent<Health>();
+        if (hl != null)
+        {
+            hl.AddHealth(-damageAmount);
         }
     }
     #endregion

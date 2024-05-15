@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class SawPathing : MonoBehaviour
 {
+    #region Fields
     public List<Transform> pathPositions = new();
     public float speed = 1.0f;
     private float startTime;
     private float journeyLength;
-    private int ForBack = 0;
+    private PathDirection pathDirection = PathDirection.Forward;
     private int pathProg = 0;
+    #endregion
 
+    #region Start
     // Start is called before the first frame update
     void Start()
     {
@@ -18,34 +21,38 @@ public class SawPathing : MonoBehaviour
         journeyLength = Vector3.Distance(pathPositions[0].position, pathPositions[1].position);
         transform.position = pathPositions[0].position;
     }
+    #endregion
 
+    #region Update
     void Update()
     {
-        for (int i = 0; i < pathPositions.Count; i++)
+        // Draw Red Debug Lines between the Path Points, to show the path
+        int lastPositionIndex = pathPositions.Count - 1;
+        for (int i = 0; i < lastPositionIndex; i++)
         {
-            if (i != pathPositions.Count - 1)
-            {
-                Debug.DrawLine(pathPositions[i].position, pathPositions[i + 1].position, Color.red);
-            }
+            Debug.DrawLine(pathPositions[i].position, pathPositions[i + 1].position, Color.red);
         }
 
+        // Distance Covered from current point to next point on the path
         float distCovered = (Time.time - startTime) * speed;
 
+        // How far along the path the saw has travelled
         float fractionOfJourney = distCovered / journeyLength;
 
-        if (ForBack == 0 && pathProg != pathPositions.Count - 1)
+        Vector3 currentPosition = transform.position;
+        if (PathDirection.Forward == pathDirection && pathProg != lastPositionIndex)
         {
             transform.position = Vector3.Lerp(pathPositions[pathProg].position, pathPositions[pathProg + 1].position, fractionOfJourney);
         }
 
-        if (ForBack == 1 && pathProg != 0)
+        if (PathDirection.Backward == pathDirection && pathProg != 0)
         {
             transform.position = Vector3.Lerp(pathPositions[pathProg].position, pathPositions[pathProg - 1].position, fractionOfJourney);
         }
 
-        if (transform.position != pathPositions[pathPositions.Count - 1].position)
+        if (currentPosition != pathPositions[lastPositionIndex].position)
         {
-            if (fractionOfJourney >= 1 && ForBack == 0 && transform.position == pathPositions[pathProg + 1].position)
+            if (fractionOfJourney >= 1 && PathDirection.Forward == pathDirection && currentPosition == pathPositions[pathProg + 1].position)
             {
                 pathProg += 1;
                 startTime = Time.time;
@@ -53,9 +60,9 @@ public class SawPathing : MonoBehaviour
             }
         }
 
-        if (transform.position != pathPositions[0].position)
+        if (currentPosition != pathPositions[0].position)
         {
-            if (fractionOfJourney >= 1 && ForBack == 1 && transform.position == pathPositions[pathProg - 1].position)
+            if (fractionOfJourney >= 1 && PathDirection.Backward == pathDirection && currentPosition == pathPositions[pathProg - 1].position)
             {
                 pathProg -= 1;
                 startTime = Time.time;
@@ -63,22 +70,29 @@ public class SawPathing : MonoBehaviour
             }
         }
 
-        if (transform.position == pathPositions[pathPositions.Count - 1].position)
+        if (currentPosition == pathPositions[lastPositionIndex].position)
         {
-            pathProg = pathPositions.Count - 1;
-            ForBack = 1;
+            pathProg = lastPositionIndex;
+            pathDirection = PathDirection.Backward;
             startTime = Time.time;
             journeyLength = Vector3.Distance(pathPositions[pathProg].position, pathPositions[pathProg - 1].position);
         }
-        if (transform.position == pathPositions[0].position)
+
+        if (currentPosition == pathPositions[0].position)
         {
             pathProg = 0;
-            ForBack = 0;
+            pathDirection = PathDirection.Forward;
             startTime = Time.time;
             journeyLength = Vector3.Distance(pathPositions[pathProg].position, pathPositions[pathProg + 1].position);
         }
 
-        Debug.Log($"PathProg: {pathProg}, ForBack: {ForBack}");
+        Debug.Log($"PathProg: {pathProg}, PathDirection: {pathDirection}");
     }
+    #endregion
+}
 
+enum PathDirection
+{
+    Forward,
+    Backward
 }

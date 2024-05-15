@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 #region Menu
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
 public class Menu : MonoBehaviour
 {
     #region Variables
@@ -14,8 +17,10 @@ public class Menu : MonoBehaviour
     // Reloads the Level when this function is called
     public void ReloadLevel()
     {
+        float originalTimeScale = Time.timeScale;
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = originalTimeScale;
     }
     #endregion
 
