@@ -15,6 +15,10 @@ public class Win : MonoBehaviour
     {
         Time.timeScale = 0;
         winMenu.SetActive(true);
+        if (collision.tag == "Player")
+        {
+            collision.GetComponent<PlayerMovement>().paused = true;
+        }
     }
     #endregion
 }

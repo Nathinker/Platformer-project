@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEditor;
 
 public class Health : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class Health : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI printer;
 
-    [SerializeField] private GameObject gameOverMenu;
+    [SerializeField] private GameObject[] uiMenus;
 
     [SerializeField] private GameObject playerPre;
 
@@ -55,7 +56,7 @@ public class Health : MonoBehaviour
     public void Death()
     {
         isDead = true;
-        gameOverMenu.SetActive(true);
+        uiMenus[0].SetActive(true);
         Time.timeScale = 0;
         playerPre.SetActive(false);
     }
@@ -66,7 +67,11 @@ public class Health : MonoBehaviour
     public void Respawn()
     {
         isDead = false;
-        gameOverMenu.SetActive(false);
+        foreach (var uiMenu in uiMenus)
+        {
+            uiMenu.SetActive(false);
+        }
+        playerPre.GetComponent<PlayerMovement>().paused = false;
         Time.timeScale = 1f;
         health = startingHealth;
         printer.text = $"Health: {health}";

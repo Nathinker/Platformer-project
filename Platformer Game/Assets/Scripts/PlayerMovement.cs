@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     public int gravityState = 0; 
     private bool IsGrounded => coll.IsTouching(groundFilter);
     private float dirY = 0;
+    public bool paused = false;
     #endregion
 
     #region Unity Functions
@@ -38,22 +39,25 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool isRunning = inputDir.x != 0;
+        if (!paused)
+        {
+            bool isRunning = inputDir.x != 0;
 
-        // Checks the approperiate animaton for the actions of the player character
-        anim.SetBool("Run", isRunning);
-        anim.SetBool("Grounded", IsGrounded);
-        GrvaityParameters();
-        MovePlayer();
-        if (Input.GetKeyDown(KeyCode.Q) && playerTransform.localScale.x >= 1f && playerTransform.localScale.x <= 2f)
-        {
-            playerTransform.localScale /= 2f;
-            moveSpeed *= 1.25f;
-        }
-        if (Input.GetKeyDown(KeyCode.E) && playerTransform.localScale.x <= 1f && playerTransform.localScale.x >= 0.5f)
-        {
-            playerTransform.localScale *= 2f;
-            moveSpeed *= 0.8f;
+            // Checks the approperiate animaton for the actions of the player character
+            anim.SetBool("Run", isRunning);
+            anim.SetBool("Grounded", IsGrounded);
+            GrvaityParameters();
+            MovePlayer();
+            if (Input.GetKeyDown(KeyCode.Q) && playerTransform.localScale.x >= 1f && playerTransform.localScale.x <= 2f)
+            {
+                playerTransform.localScale /= 2f;
+                moveSpeed *= 1.25f;
+            }
+            if (Input.GetKeyDown(KeyCode.E) && playerTransform.localScale.x <= 1f && playerTransform.localScale.x >= 0.5f)
+            {
+                playerTransform.localScale *= 2f;
+                moveSpeed *= 0.8f;
+            }
         }
     }
 #endregion
@@ -69,13 +73,16 @@ public class PlayerMovement : MonoBehaviour
     // Sets the move direction when the left or right keys are pressed, and flips the sprite if necessary
     public void SetMoveDirection(InputAction.CallbackContext context)
     {
-        inputDir = context.ReadValue<Vector2>();
-        bool flipX = inputDir.x < 0;
+        if (!paused)
+        {
+            inputDir = context.ReadValue<Vector2>();
+            bool flipX = inputDir.x < 0;
 
-        // Checks if the player is facing left or right and flips the sprite accordingly
-        playerFlipState = (inputDir.x == -1) ? 1 : (inputDir.x == 1) ? 0 : playerFlipState;
+            // Checks if the player is facing left or right and flips the sprite accordingly
+            playerFlipState = (inputDir.x == -1) ? 1 : (inputDir.x == 1) ? 0 : playerFlipState;
 
-        sprite.flipX = flipX ^ (gravityState == 1);
+            sprite.flipX = flipX ^ (gravityState == 1);
+        }
     }
 
     // Switches the gravity when the Q key is pressed
