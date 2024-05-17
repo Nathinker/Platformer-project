@@ -7619,7 +7619,7 @@ PrefabInstance:
     - target: {fileID: 5364569798382970194, guid: 1fc56b5c46c20044b8545f8894187b74, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 779364539, guid: 51eefa38d021cae48ad602a9726404ac, type: 3}
+      objectReference: {fileID: 774027060, guid: 51eefa38d021cae48ad602a9726404ac, type: 3}
     - target: {fileID: 8678922308792349106, guid: 1fc56b5c46c20044b8545f8894187b74, type: 3}
       propertyPath: m_Name
       value: Turret
