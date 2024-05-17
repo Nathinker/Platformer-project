@@ -22,10 +22,6 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //if (collision == true && collision.tag != "Enemy")
-        //{
-        //    Destroy(gameObject);
-        //}
         if (collision.gameObject.CompareTag(damageTag))
         {
             if (collision.gameObject.TryGetComponent<Health>(out var hl))
