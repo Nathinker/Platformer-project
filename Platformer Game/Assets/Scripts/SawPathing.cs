@@ -86,7 +86,7 @@ public class SawPathing : MonoBehaviour
             journeyLength = Vector3.Distance(pathPositions[pathProg].position, pathPositions[pathProg + 1].position);
         }
 
-        Debug.Log($"PathProg: {pathProg}, PathDirection: {pathDirection}");
+        // Debug.Log($"PathProg: {pathProg}, PathDirection: {pathDirection}");
     }
     #endregion
 }

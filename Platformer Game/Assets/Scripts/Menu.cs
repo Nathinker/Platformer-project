@@ -4,9 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 #region Menu
-using UnityEngine;
-using UnityEngine.SceneManagement;
-
 public class Menu : MonoBehaviour
 {
     #region Variables

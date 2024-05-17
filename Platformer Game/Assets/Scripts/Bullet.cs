@@ -15,18 +15,10 @@ public class Bullet : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-
     void Update()
     {
         rb.velocity = transform.up * speed;
     }
-
-    private void OnBecameInvisible()
-    {
-        Destroy(gameObject);
-    }
-
-    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

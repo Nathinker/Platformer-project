@@ -70,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = playerVelocity;
     }
 
+
     // Sets the move direction when the left or right keys are pressed, and flips the sprite if necessary
     public void SetMoveDirection(InputAction.CallbackContext context)
     {
