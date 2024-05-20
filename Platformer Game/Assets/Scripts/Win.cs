@@ -13,10 +13,10 @@ public class Win : MonoBehaviour
     // A function called when a collider2D enters the trigger, when this function is called it stops time and displays the win menu.
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Time.timeScale = 0;
-        winMenu.SetActive(true);
         if (collision.tag == "Player")
         {
+            Time.timeScale = 0;
+            winMenu.SetActive(true);
             collision.GetComponent<PlayerMovement>().paused = true;
         }
     }

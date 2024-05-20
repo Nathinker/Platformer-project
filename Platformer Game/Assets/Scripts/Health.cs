@@ -77,6 +77,7 @@ public class Health : MonoBehaviour
         printer.text = $"Health: {health}";
         transform.position = playerPos;
         playerPre.SetActive(true);
+        playerPre.GetComponent<PlayerMovement>().ResetInput();
         playerPre.GetComponent<PlayerMovement>().RespawnPositioning();
     }
     #endregion

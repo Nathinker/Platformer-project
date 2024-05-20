@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!paused)
         {
+            // Checks if the player is running
             bool isRunning = inputDir.x != 0;
 
             // Checks the approperiate animaton for the actions of the player character
@@ -70,6 +71,10 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = playerVelocity;
     }
 
+    public void ResetInput()
+    {
+        inputDir.x = 0;
+    }
 
     // Sets the move direction when the left or right keys are pressed, and flips the sprite if necessary
     public void SetMoveDirection(InputAction.CallbackContext context)
