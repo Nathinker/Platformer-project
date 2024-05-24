@@ -49,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("Grounded", IsGrounded);
             GravityParameters();
             MovePlayer();
+            ResizePlayer();
         }
     }
     #endregion

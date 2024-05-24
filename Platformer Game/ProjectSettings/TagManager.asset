@@ -6,6 +6,8 @@ TagManager:
   tags:
   - SawPathStraight
   - SawPathCurved
+  - World
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -42,4 +44,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Back
+    uniqueID: 3472793007
+    locked: 0
+  - name: Front
+    uniqueID: 3315047857
     locked: 0

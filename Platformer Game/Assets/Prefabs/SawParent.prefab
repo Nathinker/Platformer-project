@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b97ea67a5504504f858a4f6e8058d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: -1
+  damageAmount: 1
   damageTag: Player
 --- !u!95 &6590259034249007834
 Animator:
@@ -166,6 +166,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3416232073145659283}
+  - component: {fileID: 8890674507708225335}
   m_Layer: 0
   m_Name: SawParent
   m_TagString: Untagged
@@ -189,3 +190,17 @@ Transform:
   - {fileID: 7322428111085444741}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8890674507708225335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4474918143069991354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f8edb743bea97d43b110fb673652a6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathPositions: []
+  speed: 1
