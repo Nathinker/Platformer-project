@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-#region Menu
 public class Menu : MonoBehaviour
 {
-    #region Variables
+    #region Fields
     [SerializeField] GameObject playerPre;
     #endregion
 
@@ -41,4 +38,3 @@ public class Menu : MonoBehaviour
     }
     #endregion
 }
-#endregion

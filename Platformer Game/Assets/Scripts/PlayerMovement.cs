@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    #region Fields
     [SerializeField] private float moveSpeed = 3;
     [SerializeField] private ContactFilter2D groundFilter;
 
@@ -20,7 +21,9 @@ public class PlayerMovement : MonoBehaviour
     private bool IsGrounded => coll.IsTouching(groundFilter);
     private float dirY = 0;
     public bool paused = false;
+    #endregion
 
+    #region Start
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +33,9 @@ public class PlayerMovement : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         playerTransform = GetComponent<Transform>();
     }
+    #endregion
 
+    #region Update
     // Update is called once per frame
     void Update()
     {
@@ -42,20 +47,29 @@ public class PlayerMovement : MonoBehaviour
             // Checks the approperiate animaton for the actions of the player character
             anim.SetBool("Run", isRunning);
             anim.SetBool("Grounded", IsGrounded);
-            GrvaityParameters();
+            GravityParameters();
             MovePlayer();
-            if (Input.GetKeyDown(KeyCode.Q) && playerTransform.localScale.x >= 1f && playerTransform.localScale.x <= 2f)
-            {
-                playerTransform.localScale /= 2f;
-                moveSpeed *= 1.25f;
-            }
-            if (Input.GetKeyDown(KeyCode.E) && playerTransform.localScale.x <= 1f && playerTransform.localScale.x >= 0.5f)
-            {
-                playerTransform.localScale *= 2f;
-                moveSpeed *= 0.8f;
-            }
         }
     }
+    #endregion
+
+    #region ResizePlayer
+    private void ResizePlayer()
+    {
+        if (Input.GetKeyDown(KeyCode.Q) && playerTransform.localScale.x >= 1f && playerTransform.localScale.x <= 2f)
+        {
+            playerTransform.localScale /= 2f;
+            moveSpeed *= 1.25f;
+        }
+        if (Input.GetKeyDown(KeyCode.E) && playerTransform.localScale.x <= 1f && playerTransform.localScale.x >= 0.5f)
+        {
+            playerTransform.localScale *= 2f;
+            moveSpeed *= 0.8f;
+        }
+    }
+    #endregion
+
+    #region MovePlayer
 
     // Function to move the player
     private void MovePlayer()
@@ -63,12 +77,16 @@ public class PlayerMovement : MonoBehaviour
         Vector2 playerVelocity = new(inputDir.x * moveSpeed, rb.velocity.y);
         rb.velocity = playerVelocity;
     }
+    #endregion
 
+    #region ResetInput
     public void ResetInput()
     {
         inputDir.x = 0;
     }
+    #endregion
 
+    #region SetMoveDirection
     // Sets the move direction when the left or right keys are pressed, and flips the sprite if necessary
     public void SetMoveDirection(InputAction.CallbackContext context)
     {
@@ -83,7 +101,9 @@ public class PlayerMovement : MonoBehaviour
             sprite.flipX = flipX ^ (gravityState == 1);
         }
     }
+    #endregion
 
+    #region GravitySwitch
     // Switches the gravity when the Q key is pressed
     public void GravitySwitch()
     {
@@ -94,8 +114,10 @@ public class PlayerMovement : MonoBehaviour
             sprite.flipX = gravityState == 1;
         }
     }
+    #endregion
 
-    public void GrvaityParameters()
+    #region GravityParameters
+    public void GravityParameters()
     {
         dirY = rb.velocity.y;
 
@@ -106,7 +128,9 @@ public class PlayerMovement : MonoBehaviour
         playerTransform.rotation = Quaternion.Euler(0, 0, 180f * (gravityState == 0 ? 0 : gravityState == 1 ? 1 : 0));
         sprite.flipX = (playerFlipState == 1) != (gravityState == 1);
     }
+    #endregion
 
+    #region RespawnPositioning
     // Sets the player's respawn positioning
     public void RespawnPositioning()
     {
@@ -114,5 +138,5 @@ public class PlayerMovement : MonoBehaviour
         rb.gravityScale = 1.25f;
         sprite.flipX = gravityState == 1;
     }
-
+    #endregion
 }

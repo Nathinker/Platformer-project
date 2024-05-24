@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class TurretSpriteDirection : MonoBehaviour
 {
+    #region Fields
     public Sprite[] turretSprites;
     private SpriteRenderer sr;
     private int turretDir;
+    #endregion
+
+    #region Start
 
     // Start is called before the first frame update
     void Awake()
@@ -20,7 +24,9 @@ public class TurretSpriteDirection : MonoBehaviour
     {
         sr.sprite = turretSprites[turretDir];
     }
+    #endregion
 
+    #region Update
     // Update is called once per frame
     void Update()
     {
@@ -30,4 +36,5 @@ public class TurretSpriteDirection : MonoBehaviour
             sr.sprite = turretSprites[turretDir];
         }
     }
+    #endregion
 }
