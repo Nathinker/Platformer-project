@@ -44,16 +44,21 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("Grounded", IsGrounded);
             GrvaityParameters();
             MovePlayer();
-            if (Input.GetKeyDown(KeyCode.Q) && playerTransform.localScale.x >= 1f && playerTransform.localScale.x <= 2f)
-            {
-                playerTransform.localScale /= 2f;
-                moveSpeed *= 1.25f;
-            }
-            if (Input.GetKeyDown(KeyCode.E) && playerTransform.localScale.x <= 1f && playerTransform.localScale.x >= 0.5f)
-            {
-                playerTransform.localScale *= 2f;
-                moveSpeed *= 0.8f;
-            }
+        }
+    }
+
+
+    private void ResizePlayer()
+    {
+        if (Input.GetKeyDown(KeyCode.Q) && playerTransform.localScale.x >= 1f && playerTransform.localScale.x <= 2f)
+        {
+            playerTransform.localScale /= 2f;
+            moveSpeed *= 1.25f;
+        }
+        if (Input.GetKeyDown(KeyCode.E) && playerTransform.localScale.x <= 1f && playerTransform.localScale.x >= 0.5f)
+        {
+            playerTransform.localScale *= 2f;
+            moveSpeed *= 0.8f;
         }
     }
 
