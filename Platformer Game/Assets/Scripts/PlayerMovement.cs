@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         playerTransform = GetComponent<Transform>();
+        playerTransform.localScale.Normalize();
     }
     #endregion
 
