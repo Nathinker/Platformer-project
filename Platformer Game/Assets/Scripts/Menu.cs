@@ -37,4 +37,20 @@ public class Menu : MonoBehaviour
         SceneManager.LoadScene("LevelTwo");
     }
     #endregion
+
+    #region Start Game
+    //starts the firs level
+    public void StartGame()
+    {
+        SceneManager.LoadScene("LevelOne");
+    }
+    #endregion
+
+    #region Return to Main Menu
+    //returns to the main menu
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("StartScreen");
+    }
+    #endregion
 }
