@@ -43,11 +43,11 @@ public class FirePos : MonoBehaviour
         if (switchTimer <= 0)
         {
             switchTimer = 0;
-            if (turretDirection <= 1)
+            if (turretDirection <= 0)
             {
                 turnDirection = 0;
             }
-            else if (turretDirection >= 3)
+            else if (turretDirection >= 5)
             {
                 turnDirection = 1;
             }
@@ -71,7 +71,7 @@ public class FirePos : MonoBehaviour
     // Shoots a bullet from the turrets aim point.
     private void Shoot()
     {
-        if (turretDirection > 3 || turretDirection < 1)
+        if (turretDirection > 4 || turretDirection < 0)
         {
             turretDirection = 2;
         }
@@ -108,7 +108,6 @@ public class FirePos : MonoBehaviour
         }
 
         Instantiate(bulletPre, spawnPosition, spawnRotation);
-        Debug.Log($"{turretObject.name}: Shot bullet");
 
         Invoke("Shoot", fireRate);
     }
