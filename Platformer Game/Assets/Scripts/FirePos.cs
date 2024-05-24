@@ -9,26 +9,28 @@ public class FirePos : MonoBehaviour
     [SerializeField] GameObject turretObject;
     [SerializeField] GameObject bulletPre;
     [SerializeField] float fireRate = 5f;
+    [SerializeField] float turnRate = 5f;
     private Transform firePos;
     public int turretDirection = 2;
-    private float switchTimer = 0;
-    private float switchMax = 120;
+    private float switchTimer = 0f;
+    private float switchMax = 60f;
     private int turnDirection = 0;
 
     void Start()
     {
         firePos = GetComponent<Transform>();
-        switchMax = 120 * fireRate;
+        switchMax = 60 * turnRate;
         Invoke("Shoot", fireRate);
     }
 
     void Update()
     {
-        switchMax = 120 * fireRate;
-        switchTimer = (switchTimer + 1) % switchMax;
-        // Debug.Log($"SwitchTimer: {switchTimer}");
+        switchMax = 60 * turnRate;
+        switchTimer = (switchTimer + 1f) % switchMax;
+        // Debug.Log($"SwitchTimer {turretObject.name}: {switchTimer}");
         if (switchTimer <= 0)
         {
+            switchTimer = 0;
             if (turretDirection <= 0)
             {
                 turnDirection = 0;
@@ -85,7 +87,7 @@ public class FirePos : MonoBehaviour
         }
 
         Instantiate(bulletPre, spawnPosition, spawnRotation);
-        
+
         Invoke("Shoot", fireRate);
     }
 }

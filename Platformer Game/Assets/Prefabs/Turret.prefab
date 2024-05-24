@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 779364539, guid: 51eefa38d021cae48ad602a9726404ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -197,4 +197,5 @@ MonoBehaviour:
   turretObject: {fileID: 4744486872386749507}
   bulletPre: {fileID: 7812175219392102337, guid: 8454de1e95e49d24e960e5314f8148bf, type: 3}
   fireRate: 5
+  turnRate: 5
   turretDirection: 0
