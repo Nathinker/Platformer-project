@@ -1,6 +1,5 @@
 using UnityEngine;
 
-#region Damage
 
 public class Damage : MonoBehaviour
 {
@@ -30,4 +29,3 @@ public class Damage : MonoBehaviour
     }
     #endregion
 }
-#endregion

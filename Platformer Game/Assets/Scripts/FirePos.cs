@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class FirePos : MonoBehaviour
 {
+    #region Fields
     [SerializeField] GameObject turretObject;
     [SerializeField] GameObject bulletPre;
     [SerializeField] float fireRate = 5f;
@@ -19,7 +20,9 @@ public class FirePos : MonoBehaviour
     Quaternion turretRotation;
     Vector3 spawnPosition;
     Quaternion spawnRotation;
+    #endregion
 
+    #region Start
     void Start()
     {
         firePos = GetComponent<Transform>();
@@ -29,7 +32,9 @@ public class FirePos : MonoBehaviour
         spawnRotation = firePos.rotation;
         Invoke("Shoot", fireRate);
     }
+    #endregion
 
+    #region Update
     void Update()
     {
         switchMax = 60 * turnRate;
@@ -60,7 +65,10 @@ public class FirePos : MonoBehaviour
             }
         }
     }
+    #endregion
 
+    #region Shoot
+    // Shoots a bullet from the turrets aim point.
     private void Shoot()
     {
         if (turretDirection > 3 || turretDirection < 1)
@@ -104,4 +112,5 @@ public class FirePos : MonoBehaviour
 
         Invoke("Shoot", fireRate);
     }
+    #endregion
 }

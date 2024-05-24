@@ -5,21 +5,28 @@ using UnityEngine.Tilemaps;
 
 public class Bullet : MonoBehaviour
 {
+    #region Fields
     [SerializeField] float speed = 5;
     [SerializeField] float damage = -1;
     [SerializeField] string damageTag = "Player";
     Rigidbody2D rb;
+    #endregion
 
+    #region Start
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
+    #endregion
 
+    #region Update
     void Update()
     {
         rb.velocity = transform.up * speed;
     }
+    #endregion
 
+    #region OnTriggerEnter2D
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag(damageTag))
@@ -36,4 +43,5 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    #endregion
 }
