@@ -32,5 +32,13 @@ public class Menu : MonoBehaviour
 #endif
     }
     #endregion
+
+    #region Next Level
+    //Continues to the next level
+    public void Continue()
+    {
+        SceneManager.LoadScene("LevelTwo");
+    }
+    #endregion
 }
 #endregion
