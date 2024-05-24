@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
             // Checks the approperiate animaton for the actions of the player character
             anim.SetBool("Run", isRunning);
             anim.SetBool("Grounded", IsGrounded);
-            GrvaityParameters();
+            GravityParameters();
             MovePlayer();
         }
     }
