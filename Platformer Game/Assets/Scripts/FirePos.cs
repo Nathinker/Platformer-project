@@ -82,7 +82,6 @@ public class FirePos : MonoBehaviour
                 spawnRotation = turretRotation * Quaternion.Euler(0, 0, 90f);
                 Vector3 offset = turretRotation * new Vector3(firePos.localPosition.x - 0.5f, firePos.localPosition.y + 0.1875f, firePos.localPosition.z);
                 spawnPosition = firePos.position + offset;
-                Debug.Log($"Shoot Angle: {spawnRotation.z * (180 / Mathf.PI)}");
                 break;
             case 1:
                 spawnRotation = turretRotation * Quaternion.Euler(0, 0, 45f);
@@ -103,7 +102,6 @@ public class FirePos : MonoBehaviour
                 spawnRotation = turretRotation * Quaternion.Euler(0, 0, -90f);
                 offset = turretRotation * new Vector3(firePos.localPosition.x + 0.5f, firePos.localPosition.y + 0.1875f, firePos.localPosition.z);
                 spawnPosition = firePos.position + offset;
-                Debug.Log($"Shoot Angle: {spawnRotation.z * (180 / Mathf.PI)}");
                 break;
             default:
                 break;

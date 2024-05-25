@@ -40,13 +40,15 @@ public class SawPathing : MonoBehaviour
         float fractionOfJourney = distCovered / journeyLength;
 
         Vector3 currentPosition = transform.position;
-        if (PathDirection.Forward == pathDirection && pathProg != lastPositionIndex)
+        if (pathDirection == PathDirection.Forward && pathProg != lastPositionIndex)
         {
+            Debug.Log($"Path Progress Forwards: {pathProg}");
             transform.position = Vector3.Lerp(pathPositions[pathProg].position, pathPositions[pathProg + 1].position, fractionOfJourney);
         }
 
-        if (PathDirection.Backward == pathDirection && pathProg != 0)
+        if (pathDirection == PathDirection.Backward && pathProg != 0)
         {
+            Debug.Log($"Path Progress Backwards: {pathProg}");
             transform.position = Vector3.Lerp(pathPositions[pathProg].position, pathPositions[pathProg - 1].position, fractionOfJourney);
         }
 

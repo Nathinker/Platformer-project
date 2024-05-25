@@ -31,15 +31,17 @@ public class Menu : MonoBehaviour
     #endregion
 
     #region Next Level
-    //Continues to the next level
+    // Continues to the next level
     public void Continue()
     {
+        playerPre.GetComponent<PlayerMovement>().paused = false;
+        Time.timeScale = 1;
         SceneManager.LoadScene("LevelTwo");
     }
     #endregion
 
     #region Start Game
-    //starts the firs level
+    // Starts the first level
     public void StartGame()
     {
         SceneManager.LoadScene("LevelOne");
@@ -47,7 +49,7 @@ public class Menu : MonoBehaviour
     #endregion
 
     #region Return to Main Menu
-    //returns to the main menu
+    // Returns to the main menu
     public void MainMenu()
     {
         SceneManager.LoadScene("StartScreen");

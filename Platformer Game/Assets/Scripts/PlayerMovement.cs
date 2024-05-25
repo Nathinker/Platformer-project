@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     #region Fields
-    [SerializeField] private float moveSpeed = 3;
+    [SerializeField] public float moveSpeed = 3;
     [SerializeField] private ContactFilter2D groundFilter;
 
     private Vector2 inputDir = Vector2.zero;
